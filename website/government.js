@@ -14,30 +14,33 @@ async function buttonClick() {
 }
 
 async function issueCredential(address, connection_id) {
-    let result = await $.post(getEndpoint("8100", "issue/process"), data = {
-        "connectionId": connection_id,
-        "credentialDefinitionId": CREDENTIAL_DEFINITION_ID,
-        "atributes": {
-            "address": address
+    let result = await fetch(getEndpoint("8100", "issue/process"), {
+            method: "POST",
+            headers: {
+                "Accept": 'application/json',
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+        connectionId: connection_id,
+        credentialDefinitionId: CREDENTIAL_DEFINITION_ID,
+        attributes: {
+            address: address
         }
-    });
-    return result;
-}
-
-async function checkIssueState(process_id) {
-    let result = await $.get(getEndpoint("8100", `issue/${process_id}/state`));
-    return result;
+    })});
+    return await result.json();
 }
 
 async function doCreateCredential() {
+    $("#submission").attr("disabled", true);
     let address = $("#address").val();
-    let result = await issueCredential(address, CONNECTION_ID);
-    let wait = (seconds) => 
-        new Promise(resolve => 
-            setTimeout(() => resolve(true), seconds * 1000)
-        );
-    while (checkIssueState(result.processId) == '"VC_ISSUED"') {
-        await wait(1);
-    }
-    alert("Done!")
+    let result = await issueCredential(address, getConnectionId());
+    console.log("Issued it");
+    let status;
+    do {
+        await sleep(1000);
+        console.log("Issuing")
+        status = await $.get(getEndpoint("8100", `issue/process/${result.processId}/state`));
+        console.log(status)
+    } while (status != "VC_ISSUED")
+    alert("Accepted credential");
 }
