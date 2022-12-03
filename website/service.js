@@ -1,7 +1,15 @@
 const CONNECTION_ID = "service_connection_id";
 
+const dates = ["02/12/22 23:36", "02/12/22 20:52", "27/11/22 09:23", "25/11/22 15:09", "25/11/22 11:27","24/11/22 20:46", "23/11/22 17:23", "22/11/22 18:42", "22/11/22 11:25", "20/11/22 17:46"];
+const deltas = [-10.56, -36.77, -4.67, -56.73, "+4730.66", -5.90, -2.04, -1.05, -3.97, -9.09];
+const descs = ["Burger King", "McDonalds", "KFC", "Aldi", "Adnovum Salary :)", "Wendy's", "Taco Bell", "Domino's Pizza", "Popeyes", "Dairy Queen"];
+
 $(() => {
     console.log(getEndpoint(8080, "service"));
+    for (var i = 0; i < dates.length; i++) {
+        add_to_table(i);
+    }
+    tbody.innerHTML+=`<div class="container" style="animation: fadeIn 10s;"><p style="color: #0d6efd;">See more</p></div>`;
 });
 
 async function buttonClick() {
@@ -77,4 +85,13 @@ async function sendBankStatements() {
     } finally {
         $("#modal2close").removeAttr("disabled");
     }
+}
+
+function add_to_table(i) {
+    var tbody = document.getElementById("tbody");
+    var color=`class="text-danger"`;
+    if (deltas[i] > 0) {
+        var color = `class="text-success"`;
+    }
+    tbody.innerHTML+=`<tr style="animation: fadeIn ${i}s;"> <td>${dates[i]}</td> <td>${descs[i]}</td> <td ${color}> ${deltas[i]}</td> </tr>`;
 }
