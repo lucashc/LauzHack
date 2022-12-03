@@ -33,7 +33,7 @@ services:
     env_file:
       - configuration-tails-server.env
     volumes:
-      - ./tails-files:/tmp/tails-files
+      - ./tails-files:/tmp/tails-files:Z
   connector:
     container_name: vcms-api-connector
     image: vcmsregistry.azurecr.io/vcms-api-connector:0.9.0.20221130T082004Z
@@ -56,7 +56,7 @@ services:
     depends_on:
       - tails-file-server
     volumes:
-      - ./wallet/:/home/indy/.indy_client
+      - ./wallet/:/home/indy/.indy_client:Z
   webhook:
     container_name: vcms-svc-webhook
     image: vcmsregistry.azurecr.io/vcms-svc-webhook:0.9.0.20221130T082004Z
@@ -95,7 +95,7 @@ services:
       - "81:80"
     hostname: vcms-ui-issuer
     volumes:
-      - ./configuration-issuer-frontend.json:/dist/assets/environment-config.json
+      - ./configuration-issuer-frontend.json:/dist/assets/environment-config.json:Z
   verifierclient:
     container_name: vcms-ui-verifier
     image: vcmsregistry.azurecr.io/vcms-ui-verifier:0.9.0.20221130T082004Z
@@ -103,4 +103,4 @@ services:
       - "83:80"
     hostname: vcms-ui-verifier
     volumes:
-      - ./configuration-verifier-frontend.json:/dist/assets/environment-config.json
+      - ./configuration-verifier-frontend.json:/dist/assets/environment-config.json:Z
