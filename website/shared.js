@@ -6,7 +6,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const CREDENTIAL_DEFINITION_ID = "GxgDCXeCGmqqz259Mva9h6:3:CL:63836:RevokableAddress";
+const CREDENTIAL_DEFINITION_ID = "GxgDCXeCGmqqz259Mva9h6:3:CL:63836:RevokableAddressTwo";
 const CLAIM_KEY = "address";
 
 /**
@@ -129,6 +129,10 @@ function updateConnectButton(isConnecting) {
         <button type="button" class="btn btn-primary" onclick="createConnection()">Connect</button>
         <button type="button" class="btn btn-danger" disabled>Disconnect</button>
         `;
+    }
+
+    if (onUpdateConnectButton in window) {
+        onUpdateConnectButton(isConnecting);
     }
 }
 
