@@ -13,64 +13,80 @@
 </head>
 
 <body>
-    <h1>E-banking portal</h1>
-    <div id="connectArea"></div> <!-- Everything is filled in JS -->
-    <!--<button onclick="createConnection()">Connect</button>-->
+    <div class="container w-80">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-wrapper w-100">
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul class="nnav navbar-nav navbar-left">
+                    <a class="navbar-brand" href="#"><h3>Fake Online Banking Page</h3></a>
+            </div>
+    </nav>
+        <div class="container-fluid">
+            <div class="jumbotron">
+                <h1 class="display-4">E-banking Portal</h1>
+                <p class="lead">Add credentials to your wallet</p>
+                <div id="connectArea"></div> <!-- Everything is filled in JS -->
+                <hr class="my-4">
+            </div>
+            <!--<button onclick="createConnection()">Connect</button>-->
+            <h2>Account Transactions</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Delta</th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+                </tbody>
+            </table>
+            <hr class="my-4">
+            <h2>Request Printed Statements</h2>
 
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Date</th>
-            <th scope="col">Description</th>
-            <th scope="col">Delta</th>
-          </tr>
-        </thead>
-        <tbody id="tbody">
-        </tbody>
-    </table>
+            <div id="requestPrintedStatements"></div>
 
-    <button type="button" class="btn btn-primary" onclick="sendBankStatements()" id="sendStatements">Send bank statements by post</button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Connect to digital wallet</h5>
-                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                        onclick="cleanupQRCode()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>-->
-                </div>
-                <div class="modal-body">
-                    <p>Please scan the code on your mobile wallet app.</p>
-                    <div id="qrcode" style="margin-left: auto; margin-right: auto; width:256px;"></div>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Connect to digital wallet</h5>
+                            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                onclick="cleanupQRCode()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>-->
+                        </div>
+                        <div class="modal-body">
+                            <p>Please scan the code on your mobile wallet app.</p>
+                            <div id="qrcode" style="margin-left: auto; margin-right: auto; width:256px;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Modal 2 -->
-    <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modal2Label"
-        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modal2Label">Please authorize access to your address</h5>
-                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                        onclick="cleanupQRCode()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>-->
-                </div>
-                <div class="modal-body" id="modal2body">
-                    <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Waiting for approval...</span>
+            <!-- Modal 2 -->
+            <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modal2Label"
+                aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal2Label">Please authorize access to your address</h5>
+                            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                onclick="cleanupQRCode()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>-->
+                        </div>
+                        <div class="modal-body" id="modal2body">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Waiting for approval...</span>
+                            </div>
+                            <div>Test body</div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modal2close">Close</button>
+                        </div>
                     </div>
-                    <div>Test body</div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modal2close">Close</button>
                 </div>
             </div>
         </div>
