@@ -1,3 +1,5 @@
+const CONNECTION_ID = "service_connection_id";
+
 $(() => {
     console.log(getEndpoint(8080, "service"));
 });
@@ -11,28 +13,40 @@ async function buttonClick() {
     console.log("Request finished!");
 }
 
-const CONNECTION_ID = "connection_id";
+function onUpdateConnectButton(isConnecting) {
+    let button = $("#sendStatements");
+
+    if (!isConnecting && getConnectionId()) {
+        button.removeAttr("disabled");
+    } else {
+        button.attr("disabled", true);
+    }
+}
 
 async function sendBankStatements() {
-    let connection_id = localStorage[CONNECTION_ID]
-
-    // create connection
-    if (connection_id) {
-        connection_id = localStorage[CONNECTION_ID] = await createConnection();
-    }
-
     // fetch address
-    const { processId } = await $.post(getEndpoint("8081", "verify/process"), {
-        connectionId: connection_id,
-        credentialDefinitionId: CREDENTIAL_DEFINITION_ID,
-        attributes: [CLAIM_KEY],
-    });
+    const { processId } = await fetch(getEndpoint("8081", "verify/process"), {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            connectionId: getConnectionId(),
+            credentialDefinitionId: CREDENTIAL_DEFINITION_ID,
+            attributes: [CLAIM_KEY],
+        }),
+    }).then((response) => response.json());
 
     // wait for fetch to progress
     let status;
     do {
         status = await $.get(getEndpoint("8081", `verify/process/${processId}/state`));
-    } while (status !== "IN_PROGRESS");
+
+        console.log("connection status update", status);
+        await sleep(1000);
+    } while (status === "IN_PROGRESS");
+
+    console.log("connection status final update", status);
 
     // get claim
     if (status === "VERIFIED") {
