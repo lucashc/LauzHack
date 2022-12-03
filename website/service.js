@@ -24,37 +24,57 @@ function onUpdateConnectButton(isConnecting) {
 }
 
 async function sendBankStatements() {
-    // fetch address
-    const { processId } = await fetch(getEndpoint("8081", "verify/process"), {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            connectionId: getConnectionId(),
-            credentialDefinitionId: CREDENTIAL_DEFINITION_ID,
-            attributes: [CLAIM_KEY],
-        }),
-    }).then((response) => response.json());
+    $("#modal2body").html(`
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Waiting for authorization...</span>
+    </div>
+    Waiting for authorization...
+    `);
+    $("#modal2close").attr("disabled", true);
+    $("#modal2").modal('show');
 
-    // wait for fetch to progress
-    let status;
-    do {
-        status = await $.get(getEndpoint("8081", `verify/process/${processId}/state`));
+    try {
+        // fetch address
+        const { processId } = await fetch(getEndpoint("8081", "verify/process"), {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                connectionId: getConnectionId(),
+                credentialDefinitionId: CREDENTIAL_DEFINITION_ID,
+                attributes: [CLAIM_KEY],
+            }),
+        }).then((response) => response.json());
 
-        console.log("connection status update", status);
-        await sleep(1000);
-    } while (status === "IN_PROGRESS");
+        // wait for fetch to progress
+        let status;
+        do {
+            status = await $.get(getEndpoint("8081", `verify/process/${processId}/state`));
 
-    console.log("connection status final update", status);
+            console.log("connection status update", status);
+            await sleep(1000);
+        } while (status === "IN_PROGRESS");
 
-    // get claim
-    if (status === "VERIFIED") {
-        const response = await $.get(getEndpoint("8081", `verify/process/${processId}/claims`));
-        const address = response[CLAIM_KEY];
+        console.log("connection status final update", status);
 
-        console.log(address);
-    } else {
-        // TODO: error handling
+        // get claim
+        if (status === "VERIFIED") {
+            const response = await $.get(getEndpoint("8081", `verify/process/${processId}/claims`));
+            const address = response[CLAIM_KEY];
+
+            console.log(address);
+
+            $("#modal2body").html(`
+                <div class="alert alert-success" role="alert">
+                    Bank statement sent to the following address:<br>
+                    ${address}
+                </div>
+            `);
+        } else {
+            // TODO: error handling
+        }
+    } finally {
+        $("#modal2close").removeAttr("disabled");
     }
 }
