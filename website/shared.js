@@ -18,3 +18,20 @@ async function getConnectionStatus(connection_id) {
   // * 'responded': User confirmed connection
   return status;
 }
+
+function placeQRCode(url) {
+  let qrcode = new QRCode(document.getElementById("qrcode"), {
+    text: url,
+    width: 256,
+    height: 256,
+    colorDark : "#000000",
+    colorLight : "#ffffff",
+    correctLevel : QRCode.CorrectLevel.H
+  });
+  $("#exampleModal").modal('show');
+}
+
+function cleanupQRCode() {
+  document.getElementById("qrcode").innerHTML = "";
+  $("#exampleModal").modal("hide");
+}
