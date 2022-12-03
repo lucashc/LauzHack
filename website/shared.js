@@ -131,7 +131,7 @@ function updateConnectButton(isConnecting) {
         `;
     }
 
-    if (onUpdateConnectButton in window) {
+    if (typeof onUpdateConnectButton === "function") {
         onUpdateConnectButton(isConnecting);
     }
 }
