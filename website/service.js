@@ -1,3 +1,5 @@
+const CONNECTION_ID = "service_connection_id";
+
 $(() => {
     console.log(getEndpoint(8080, "service"));
 });
@@ -11,16 +13,7 @@ async function buttonClick() {
     console.log("Request finished!");
 }
 
-const CONNECTION_ID = "connection_id";
-
 async function sendBankStatements() {
-    let connection_id = localStorage[CONNECTION_ID]
-
-    // create connection
-    if (connection_id) {
-        connection_id = localStorage[CONNECTION_ID] = await createConnection();
-    }
-
     // fetch address
     const { processId } = await $.post(getEndpoint("8081", "verify/process"), {
         connectionId: connection_id,

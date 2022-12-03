@@ -1,3 +1,5 @@
+const CONNECTION_ID = "government_connection_id";
+
 $(() => {
     console.log(getEndpoint(8080, "government"));
 });
