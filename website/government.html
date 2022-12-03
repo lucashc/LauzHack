@@ -11,24 +11,57 @@
 </head>
 
 <body>
-  <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Swiss Government Admin</a>
-      <a class="nav-link" href="#">Address</a>
+    <div class="container w-80" style="box-shadow: 0px 0px 20px black;">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-wrapper w-100">
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul class="nnav navbar-nav navbar-left">
+                    <a class="navbar-brand" href="#"><h3>Fake Swiss Government Admin</h3></a>
+            </div>
+            <div class="navbar-collapse collapse w-100 order-4 dual-collapse2">
+                <ul class="nav navbar-nav navbar-right">           
+                        <a class="nav-link" href="#">Address Registration</a>
+                       <img src="gov_res/flag.png" width="40" height="40" float="left" margin-left="100px;">
+                        <a class="nav-link" href="#">DE FR   IT   RM   EN   C++</a>
+                </ul>
+            </div>
     </nav>
-  </div>
   <div class="container-fluid">
     <div class="jumbotron">
       <h1 class="display-4">Administration Settings</h1>
       <p class="lead">Add credentials to your wallet</p>
+      <div id="connectArea"></div> <!-- Everything is filled in JS -->
       <hr class="my-4">
     </div>
-    <div>
-        <div id="connectArea"></div> <!-- Everything is filled in JS -->
+    <div class="row">
+        <div class="col col-6">
+            <h2>Identity</h2>
+            <div class="row">
+                <div class="col">
+                    <p>
+                        <b>Name:</b><br/>
+                        <b>Birth Date:</b><br/><br/>
+                        <b>Social Security Number: </b><br/>
+                        <b>Favourite colour:</b>
+                    </p>
+                </div>
+                <div class="col">
+                    <p>
+                        John Ludwig Doe<br/>
+                        04-08-1989 <br/><br/>
+                        777-354-353-353 <br/>
+                        🟦
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col col-2">
+            <img src="https://thispersondoesnotexist.com/image" class="img-thumbnail "/>
+        </div>
     </div>
+    <hr class="my-4">
   <div class="row">
     <div class="col">
-        <h2>Create Address</h2>
+        <h2>Modify Address</h2>
         <form>
           <div class="form-group mb-3">
             <label for="address">New Address</label>
@@ -39,12 +72,26 @@
     </div>
     <div class="col">
       <h2>
-        Revoke Addres
+        Current Address
       </h2>
-      <button class="btn btn-primary" onclick="doRevoke()" id="revoke" type="button">Revoke Address</button>
+      <b id="currentAddress"></p>
     </div>
   </div>
+  <hr class="my-4">
+  <div></div>
   </div>
+
+  <div class="container-fluid "></div>
+
+</div>
+<div class="position-absolute bottom-0 start-0 w-100 text-grey opacity-20 text-center" style="background-color: rgba(230,230,230, 0.5)">
+    <p position="center">
+       LauzHack2022 
+        </br>
+       OutLauz &#169;
+       </br>
+       Thanks to starline!
+    </p>
 </div>
 
   <!-- Modal -->
