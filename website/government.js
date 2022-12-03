@@ -2,10 +2,24 @@ const CONNECTION_ID = "government_connection_id";
 
 $(() => {
     console.log(getEndpoint(8080, "government"));
+    addPrevious();
+});
+
+function addPrevious() {
     if ("currentAddress" in localStorage) {
         $("#currentAddress").text(localStorage["currentAddress"]);
     }
-});
+    $("#addresslist li").remove();
+    if ("historyAddresses" in localStorage) {
+        let i = 0;
+        JSON.parse(localStorage["historyAddresses"]).forEach(element => {
+            if (i !=0 ) {
+                $(`<li>${element}</li>`).appendTo("#addresslist");
+            } 
+            i++;
+        });
+    }
+}
 
 async function buttonClick() {
     console.log("Button clicked!");
@@ -53,6 +67,13 @@ async function doCreateCredential() {
     alert("Accepted credential");
     $("#currentAddress").text(address);
     localStorage["currentAddress"] = address;
+    if (!("historyAddresses" in localStorage)) {
+        localStorage["historyAddresses"] = JSON.stringify("[]")
+    }
+    let tmp = JSON.parse(localStorage["historyAddresses"]);
+    tmp.unshift(address);
+    localStorage["historyAddresses"] = JSON.stringify(tmp);
+    addPrevious();
 }
 
 async function doRevoke() {
