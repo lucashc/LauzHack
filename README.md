@@ -38,3 +38,11 @@ Our idea can easily be extended to many other use cases. For example, we can use
 - Email addresses
 -  Passport/ID
 - Removing the need for painful OAuth2 calls by issuing private public key pairs. This means one is no longer tracked.
+
+## How It Works
+![LH1](https://user-images.githubusercontent.com/60450429/205486477-01670b13-dc98-4506-a618-749adba2c22e.jpeg)
+![LH2](https://user-images.githubusercontent.com/60450429/205486492-50237d66-0f15-4cf2-9efe-db8c838fdfd5.jpeg)
+![LH3](https://user-images.githubusercontent.com/60450429/205486497-c40268ad-441f-4d20-93c9-8da352fcd993.jpeg)
+![LH4](https://user-images.githubusercontent.com/60450429/205486501-bf324c1a-266d-48ce-b8c4-4a85623303c9.jpeg)
+![LH5](https://user-images.githubusercontent.com/60450429/205486505-2aa40d4b-6e28-404f-9ec9-625f5b89a758.jpeg)
+![LH6](https://user-images.githubusercontent.com/60450429/205486508-d83ad781-865d-4301-94a2-ea7eab6eeb51.jpeg)
