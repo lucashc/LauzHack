@@ -8,6 +8,6 @@ curl -X 'POST' \
   "attributes": [
     "score"
   ],
-  "schema_name": "my_schema",
+  "schema_name": "my_schemav1.0",
   "schema_version": "1.0"
 }'

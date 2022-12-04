@@ -6,7 +6,7 @@ curl -X 'POST' \
   -H 'Content-Type: application/json' \
   -d '{
   "revocation_registry_size": 1000,
-  "schema_id": "S5kj1RWsVgEZEy4F4ZLuzZ:2:demo-lauzhack:1.0",
+  "schema_id": "GxgDCXeCGmqqz259Mva9h6:2:my_schemav1.0:1.0",
   "support_revocation": false,
-  "tag": "LauzhackDemo"
+  "tag": "Github"
 }'

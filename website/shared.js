@@ -1,12 +1,12 @@
 function getEndpoint(port, path) {
-    return `http://128.179.191.235:${port}/${path}`;
+    return `http://192.168.74.198:${port}/${path}`;
 }
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const CREDENTIAL_DEFINITION_ID = "GxgDCXeCGmqqz259Mva9h6:3:CL:63836:RevokableAddress128_179_191_235";
+const CREDENTIAL_DEFINITION_ID = "GxgDCXeCGmqqz259Mva9h6:3:CL:63836:DynAddress192_168_74_198";
 const CLAIM_KEY = "address";
 
 /**

@@ -7,7 +7,7 @@
 import requests as rq
 from requests.structures import CaseInsensitiveDict
 
-host = "http://128.179.191.235"
+host = "http://192.168.74.198"
 schema = "GxgDCXeCGmqqz259Mva9h6:2:address_schema:1.0"
 
 headers = CaseInsensitiveDict()
@@ -21,7 +21,7 @@ data = """
   "revocation_registry_size": 1000,
   "schema_id": "%s",
   "support_revocation": true,
-  "tag": "RevokableAddress%s"
+  "tag": "DynAddress%s"
 }
 """ % (schema, tag)
 
