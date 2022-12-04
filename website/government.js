@@ -68,7 +68,7 @@ async function doCreateCredential() {
     $("#currentAddress").text(address);
     localStorage["currentAddress"] = address;
     if (!("historyAddresses" in localStorage)) {
-        localStorage["historyAddresses"] = JSON.stringify("[]")
+        localStorage["historyAddresses"] = JSON.stringify([])
     }
     let tmp = JSON.parse(localStorage["historyAddresses"]);
     tmp.unshift(address);
