@@ -75,7 +75,7 @@ async function sendBankStatements() {
 
             $("#modal2body").html(`
                 <div class="alert alert-success" role="alert">
-                    Bank statement sent to the following address:<br>
+                    Bank statement will be sent to the following address:<br>
                     ${address}
                 </div>
             `);
