@@ -49,31 +49,50 @@ async function issueCredential(address, connection_id) {
 
 async function doCreateCredential() {
     try {
-        doRevoke()
-    } catch (e) {
-        console.log(e)
+        $("#modal2body").html(`
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Waiting for authorization...</span>
+        </div>
+        Waiting for authorization...
+        `);
+        $("#modal2close").attr("disabled", true);
+        $("#modal2").modal('show');
+
+        try {
+            doRevoke()
+        } catch (e) {
+            console.log(e)
+        }
+        // $("#submission").attr("disabled", true);
+        let address = $("#address").val();
+        let result = await issueCredential(address, getConnectionId());
+        console.log("Issued it");
+        let status;
+        do {
+            await sleep(1000);
+            console.log("Issuing")
+            status = await $.get(getEndpoint("8100", `issue/process/${result.processId}/state`));
+            console.log(status)
+        } while (status != "VC_ISSUED")
+        $("#currentAddress").text(address);
+        localStorage["currentAddress"] = address;
+        if (!("historyAddresses" in localStorage)) {
+            localStorage["historyAddresses"] = JSON.stringify([])
+        }
+        let tmp = JSON.parse(localStorage["historyAddresses"]);
+        tmp.unshift(address);
+        localStorage["historyAddresses"] = JSON.stringify(tmp);
+        addPrevious();
+
+        $("#modal2body").html(`
+        <div class="alert alert-success" role="alert">
+            Successfully updated address.
+        </div>
+        `);
+
+    } finally {
+        $("#modal2close").removeAttr("disabled");
     }
-    // $("#submission").attr("disabled", true);
-    let address = $("#address").val();
-    let result = await issueCredential(address, getConnectionId());
-    console.log("Issued it");
-    let status;
-    do {
-        await sleep(1000);
-        console.log("Issuing")
-        status = await $.get(getEndpoint("8100", `issue/process/${result.processId}/state`));
-        console.log(status)
-    } while (status != "VC_ISSUED")
-    alert("Accepted credential");
-    $("#currentAddress").text(address);
-    localStorage["currentAddress"] = address;
-    if (!("historyAddresses" in localStorage)) {
-        localStorage["historyAddresses"] = JSON.stringify([])
-    }
-    let tmp = JSON.parse(localStorage["historyAddresses"]);
-    tmp.unshift(address);
-    localStorage["historyAddresses"] = JSON.stringify(tmp);
-    addPrevious();
 }
 
 async function doRevoke() {
@@ -96,4 +115,16 @@ async function doRevoke() {
             cred_ex_id: cred_ex_id
     })});
     console.log(result)
+}
+
+function onUpdateConnectButton(isConnecting) {
+    let div = $("#requestCredentialUpdate");
+
+    if (!isConnecting && getConnectionId()) {
+        div.html(`
+            <button class="btn btn-primary" onclick="doCreateCredential()" id="submission" type="button">Create new credential</button>
+        `);
+    } else {
+        div.html("To update your address, please connect to your digital wallet.");
+    }
 }
