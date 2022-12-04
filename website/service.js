@@ -22,12 +22,12 @@ async function buttonClick() {
 }
 
 function onUpdateConnectButton(isConnecting) {
-    let button = $("#sendStatements");
+    let div = $("#requestPrintedStatements");
 
     if (!isConnecting && getConnectionId()) {
-        button.removeAttr("disabled");
+        div.html(`<button type="button" class="btn btn-primary" onclick="sendBankStatements()">Send bank statements by post</button>`);
     } else {
-        button.attr("disabled", true);
+        div.html("To request a copy of your bank statements by post, please connect to your digital wallet.");
     }
 }
 
