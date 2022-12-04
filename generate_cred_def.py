@@ -1,7 +1,13 @@
+### Update instructions:
+### 1. Update the host in the variable config file
+### 2. Update host variable in python
+### 3. Run this script to get the new cred def
+### 4. Update host variable and cred def in shared.js
+
 import requests as rq
 from requests.structures import CaseInsensitiveDict
 
-host = "http://128.179.190.207"
+host = "http://128.179.191.235"
 schema = "GxgDCXeCGmqqz259Mva9h6:2:address_schema:1.0"
 
 headers = CaseInsensitiveDict()
