@@ -1,7 +1,7 @@
 const CONNECTION_ID = "service_connection_id";
 
 const dates = ["02/12/22 23:36", "02/12/22 20:52", "27/11/22 09:23", "25/11/22 15:09", "25/11/22 11:27","24/11/22 20:46", "23/11/22 17:23", "22/11/22 18:42", "22/11/22 11:25", "20/11/22 17:46"];
-const deltas = [-10.56, -36.77, -4.67, -56.73, "+4730.66", -5.90, -2.04, -1.05, -3.97, -9.09];
+const deltas = [-10.56, -36.77, -4.67, -56.73, "+4730.66", "-5.90", -2.04, -1.05, -3.97, -9.09];
 const descs = ["Burger King", "McDonalds", "KFC", "Aldi", "Adnovum Salary :)", "Wendy's", "Taco Bell", "Domino's Pizza", "Popeyes", "Dairy Queen"];
 
 $(() => {
@@ -9,7 +9,7 @@ $(() => {
     for (var i = 0; i < dates.length; i++) {
         add_to_table(i);
     }
-    tbody.innerHTML+=`<div class="container" style="animation: fadeIn 10s;"><p style="color: #0d6efd;">See more</p></div>`;
+    tbody.innerHTML+=`<div class="container" style="animation: fadeIn 10s;"><p class="mb-5" style="color: #0d6efd;">See more</p></div>`;
 });
 
 async function buttonClick() {
@@ -25,7 +25,7 @@ function onUpdateConnectButton(isConnecting) {
     let div = $("#requestPrintedStatements");
 
     if (!isConnecting && getConnectionId()) {
-        div.html(`<button type="button" class="btn btn-primary" onclick="sendBankStatements()">Send bank statements by post</button>`);
+        div.html(`<button type="button" class="btn btn-primary mb-3" onclick="sendBankStatements()">Send bank statements by post</button>`);
     } else {
         div.html("To request a copy of your bank statements by post, please connect to your digital wallet.");
     }
