@@ -79,8 +79,12 @@ async function sendBankStatements() {
                     ${address}
                 </div>
             `);
-        } else {
-            // TODO: error handling
+        } else if (status === "REVOKED") {
+            $("#modal2body").html(`
+            <div class="alert alert-danger" role="alert">
+                Address was revoked! Please upload a new address.
+            </div>
+            `);
         }
     } finally {
         $("#modal2close").removeAttr("disabled");

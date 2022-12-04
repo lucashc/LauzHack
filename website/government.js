@@ -8,6 +8,8 @@ $(() => {
 function addPrevious() {
     if ("currentAddress" in localStorage) {
         $("#currentAddress").text(localStorage["currentAddress"]);
+    } else {
+        $("#currentAddress").text("");
     }
     $("#addresslist li").remove();
     if ("historyAddresses" in localStorage) {
@@ -95,6 +97,13 @@ async function doCreateCredential() {
     }
 }
 
+async function manualRevoke() {
+    await doRevoke();
+    delete localStorage["currentAddress"];
+    delete localStorage["historyAddresses"];
+    addPrevious();
+}
+
 async function doRevoke() {
     let active_thingy = await $.get(getEndpoint("9020", `revocation/active-registry/${CREDENTIAL_DEFINITION_ID}`));
     console.log(active_thingy);
@@ -102,19 +111,28 @@ async function doRevoke() {
 
     let details = await $.get(getEndpoint("9020", `revocation/registry/${revoc_id}/issued/details`));
     console.log(details)
-    let cred_ex_id = details[0].cred_ex_id;
+    let revokes = [];
+    for (let i = 0; i < details.length; ++i) {
+        let cred_ex_id = details[i].cred_ex_id;
 
-    let result = await fetch(getEndpoint("9020", "revocation/revoke"), {
-        method: "POST",
-        headers: {
-            "Accept": 'application/json',
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            connection_id: getConnectionId(),
-            cred_ex_id: cred_ex_id
-    })});
-    console.log(result)
+        revokes[i] = new Promise(resolve => {
+            return fetch(getEndpoint("9020", "revocation/revoke"), {
+                    method: "POST",
+                    headers: {
+                        "Accept": 'application/json',
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        connection_id: getConnectionId(),
+                        cred_ex_id: cred_ex_id,
+                        comment: "Address changed",
+                        notify: true,
+                        publish: true,
+                })}).then(result => console.log(result)).then(result => resolve(result));
+        });
+    }
+
+    await Promise.all(revokes);
 }
 
 function onUpdateConnectButton(isConnecting) {
@@ -123,6 +141,7 @@ function onUpdateConnectButton(isConnecting) {
     if (!isConnecting && getConnectionId()) {
         div.html(`
             <button class="btn btn-primary" onclick="doCreateCredential()" id="submission" type="button">Create new credential</button>
+            <button class="btn btn-danger" onclick="manualRevoke()" id="submission" type="button">Debug: Revoke all</button>
         `);
     } else {
         div.html("To update your address, please connect to your digital wallet.");
