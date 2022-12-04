@@ -2,7 +2,7 @@
 Each year, 10% of the Swiss population moves home ([source](https://www.baloise.com/en/home/news-stories/news/media-releases/2021/report-on-home-moving-in-switzerland-in-2020.html#:~:text=Every%20year%2C%20more%20than%20450%2C000,cent%20of%20the%20country's%20population.)). In the online world, this currently requires changing addresses across many sites. Leveraging Adnovum's VCMS, sharing this belongs to the past!
 
 ## Inspiration
-As students, we move around a lot for education. Changing addresses online can be a needless hassle. In addition, some website require verified addresses (for example, banks). Using Adnovum's VCMS, we saw a way to avoid this problem. Our solution allows trusted providers to issue credentials to users which can then be used across all sites. The days of having to update one's address in every website belong to the past!
+As students, we move around a lot for education. Changing addresses online can be a needless hassle. In addition, some websites require verified addresses (for example, banks). Using Adnovum's VCMS, we saw a way to avoid this problem. Our solution allows trusted providers to issue credentials to users which can then be used across all sites. The days of having to update one's address in every website belong to the past!
 
 ## What it does
 Our solution allows a trusted provider (e.g. the government), to issue verified credentials (e.g. one's address) to a user. 
