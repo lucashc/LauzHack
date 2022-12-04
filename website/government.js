@@ -98,10 +98,17 @@ async function doCreateCredential() {
 }
 
 async function manualRevoke() {
-    await doRevoke();
-    delete localStorage["currentAddress"];
-    delete localStorage["historyAddresses"];
-    addPrevious();
+    let btn = $("#submission2");
+    btn.attr("disabled", true);
+    try {
+        await doRevoke();
+        delete localStorage["currentAddress"];
+        delete localStorage["historyAddresses"];
+        addPrevious();
+    } finally {
+        btn.removeAttr("disabled");
+    }
+
 }
 
 async function doRevoke() {
@@ -141,7 +148,7 @@ function onUpdateConnectButton(isConnecting) {
     if (!isConnecting && getConnectionId()) {
         div.html(`
             <button class="btn btn-primary" onclick="doCreateCredential()" id="submission" type="button">Create new credential</button>
-            <button class="btn btn-danger" onclick="manualRevoke()" id="submission" type="button">Debug: Revoke all</button>
+            <button class="btn btn-danger" onclick="manualRevoke()" id="submission2" type="button">Debug: Revoke all</button>
         `);
     } else {
         div.html("To update your address, please connect to your digital wallet.");
